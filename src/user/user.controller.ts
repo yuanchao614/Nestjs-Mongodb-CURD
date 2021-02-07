@@ -10,7 +10,7 @@ export class UserController {
     ) {}
 
     @Post()
-    async createUser(
+    public async createUser(
         @Res() res,
         @Body() createUserDto: createUserDto,
         ) {
@@ -20,7 +20,7 @@ export class UserController {
     }
 
     @Get()
-    async getUser(
+    public async getUser(
         @Res() res,
         @Query() paginationQuery: PaginationQueryDto,
     ) {
@@ -31,7 +31,7 @@ export class UserController {
 
     @Get('/:id')
     public async findUserById(@Res() res, @Param('id') userId: string) {
-        console.log(userId, 'query user by id:::::::::');
+        console.log(userId, 'query user by id:::::::::::');
       const user = await this.userService.findUserById(userId);
       if (!user) {
         throw new NotFoundException('user does not exist!');
@@ -45,6 +45,7 @@ export class UserController {
       @Param('id') userId: string,
       @Body() updateUserDto: createUserDto,
     ) {
+        console.log(userId, updateUserDto, 'update user param:::::::::::::');
       try {
         const user = await this.userService.updateUser(
             userId,
@@ -67,6 +68,7 @@ export class UserController {
 
     @Delete('/:id')
     public async deleteCustomer(@Res() res, @Param('id') userId: string) {
+      console.log(userId, 'delete user param:::::::::::::');
       if (!userId) {
         throw new NotFoundException('user ID does not exist');
       }
