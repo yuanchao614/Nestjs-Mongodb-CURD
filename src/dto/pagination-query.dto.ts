@@ -2,10 +2,10 @@ import { IsOptional, IsPositive } from 'class-validator';
 
 export class PaginationQueryDto {
   @IsOptional()
-  @IsPositive()
+  // @IsPositive()
   pageSize: number;
 
   @IsOptional()
-  @IsPositive()
+  // @IsPositive()
   pageIndex: number;
 }

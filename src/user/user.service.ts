@@ -14,7 +14,10 @@ export class UserService {
      * @param createUserDto 
      */
     async create(createUserDto: createUserDto): Promise<User> {
-        console.log(createUserDto);
+        const existingUser = await this.findUserByName(createUserDto.userName)
+        if (existingUser) {
+            throw new NotFoundException(`User ${createUserDto.userName} has already exist!`);
+        }
         const createUser = new this.userModel(createUserDto);
         return createUser.save();
     }
@@ -77,5 +80,14 @@ export class UserService {
           return deletedCustomer;
     }
 
+    async findUserByName(userName: string): Promise<any> {
+        console.log(userName, 'userNam::::::::');
+        const user = await this.userModel.findOne({userName: userName});
+        console.log(user, 'find by name:::::::');
+        if (!user) {
+            return null
+        }
+        return user;
+    }
 
 }
