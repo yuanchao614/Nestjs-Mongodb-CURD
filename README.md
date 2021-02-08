@@ -23,7 +23,7 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-This is my Nest.js + Mongodb + Node.js CURD api example!
+This is my Nest.js + Mongodb + Node.js CURD api example and having Authorization! 
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
@@ -119,6 +119,18 @@ DELETE
 http://localhost:3000/user/:id
 Path param:
 id
+```
+
+* login api
+
+```bash
+http://localhost:3000/auth/login
+
+response: access_token
+
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTI3Njc2MTgsImV4cCI6MTYxMjc2ODIxOH0.Hv_QFRfkh0T0WLV5-TIBv6JmLzmrPUf8gKIjI-_tgis"
+}
 ```
 
 ## Support
