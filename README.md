@@ -24,6 +24,7 @@
 
 ## Description
 This is my Nest.js + Mongodb + Node.js CURD api example and having Authorization! 
+Include files upload、download、getFile、searchFile api!
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
