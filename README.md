@@ -136,27 +136,27 @@ response: access_token
 
 * upload file
 
-![upload files](/src/image/uploadfiles.png)
+![upload files](/src/images/uploadfiles.png)
 
 * get file info by id
 
-![get file info](/src/image/getfileinfo.png)
+![get file info](/src/images/getfileinfo.png)
 
 * get file by id
 
-![get file](/src/image/getfile.png)
+![get file](/src/images/getfile.png)
 
 * download file by id
 
-![download file](/src/image/downloadfile.png)
+![download file](/src/images/downloadfile.png)
 
 * delete file by id
 
-![download file](/src/image/deletefile.png)
+![download file](/src/images/deletefile.png)
 
 * search file
 
-![download file](/src/image/searchfile.png)
+![download file](/src/images/searchfile.png)
 
 ## Support
 
