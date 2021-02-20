@@ -24,6 +24,7 @@
 
 ## Description
 This is my Nest.js + Mongodb + Node.js CURD api example and having Authorization! 
+Include files upload、download、getFile、searchFile api!
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
@@ -132,6 +133,30 @@ response: access_token
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTI3Njc2MTgsImV4cCI6MTYxMjc2ODIxOH0.Hv_QFRfkh0T0WLV5-TIBv6JmLzmrPUf8gKIjI-_tgis"
 }
 ```
+
+* upload file
+
+![upload files](/src/images/uploadfiles.png)
+
+* get file info by id
+
+![get file info](/src/images/getfileinfo.png)
+
+* get file by id
+
+![get file](/src/images/getfile.png)
+
+* download file by id
+
+![download file](/src/images/downloadfile.png)
+
+* delete file by id
+
+![download file](/src/images/deletefile.png)
+
+* search file
+
+![download file](/src/images/searchfile.png)
 
 ## Support
 
