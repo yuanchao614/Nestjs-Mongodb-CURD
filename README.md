@@ -133,6 +133,30 @@ response: access_token
 }
 ```
 
+* upload file
+
+![upload files](/src/image/uploadfiles.png)
+
+* get file info by id
+
+![get file info](/src/image/getfileinfo.png)
+
+* get file by id
+
+![get file](/src/image/getfile.png)
+
+* download file by id
+
+![download file](/src/image/downloadfile.png)
+
+* delete file by id
+
+![download file](/src/image/deletefile.png)
+
+* search file
+
+![download file](/src/image/searchfile.png)
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

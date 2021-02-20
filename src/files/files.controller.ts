@@ -1,4 +1,4 @@
-import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus } from '@nestjs/common';
+import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body } from '@nestjs/common';
 import { ApiCreatedResponse, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
@@ -86,4 +86,13 @@ export class FilesController {
             file: file
         }
     }
+
+    @Post('search')
+    // @ApiBadRequestResponse({ type: ApiException })
+    async getAllFile(@Body() searchParam: any, @Res() res) {      
+        console.log(searchParam, 'search file param::::::::::');  
+        const files = await this.filesService.findAllFile(searchParam)
+        return res.status(HttpStatus.OK).json(files);
+    }
+
 }
