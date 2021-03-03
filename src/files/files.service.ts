@@ -1,16 +1,17 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose'
+import { InjectConnection, InjectModel } from '@nestjs/mongoose'
 import { Connection } from 'mongoose'
 import { MongoGridFS } from 'mongo-gridfs'
 import { GridFSBucketReadStream } from 'mongodb'
 import { FileInfoVm } from './file-info-vm.model'
-import * as mongoose from 'mongoose';
+import { Model } from 'mongoose';
+import { QueryFile, QueryResult } from 'src/files/interface/fileInterface'
 
 @Injectable()
 export class FilesService {
   private fileModel: MongoGridFS;
 
-  constructor(@InjectConnection() private readonly connection: Connection) {
+  constructor(@InjectConnection() private readonly connection: Connection, @InjectModel('fs.files') private filesModel: Model<any>) {
     this.fileModel = new MongoGridFS(this.connection.db, 'fs');
   }
 
@@ -54,6 +55,18 @@ export class FilesService {
     }
     const result = await this.fileModel.find(param)
     return result;
+  }
+
+  async queryFileInfo(query: QueryFile = {}, pageIndex: number, pageSize: number): Promise<QueryResult> {
+    console.log(query, pageIndex, pageSize);
+    const total = await this.filesModel.count();
+    const data = await this.filesModel.find(query)
+    .skip(Number(pageSize) * Number(pageIndex))
+    .limit(Number(pageSize))
+    return {
+      total,
+      data
+    }
   }
 }
 

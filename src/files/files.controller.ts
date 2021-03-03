@@ -1,10 +1,11 @@
-import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body } from '@nestjs/common';
+import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body, Query } from '@nestjs/common';
 import { ApiCreatedResponse, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { FileResponseVm } from './file-response-vm.model'
+import { QueryFile } from 'src/files/interface/fileInterface'
 
-@Controller('files')
+@Controller('api/files')
 export class FilesController {
   constructor(private filesService: FilesService){}
   @Post('')
@@ -93,6 +94,12 @@ export class FilesController {
         console.log(searchParam, 'search file param::::::::::');  
         const files = await this.filesService.findAllFile(searchParam)
         return res.status(HttpStatus.OK).json(files);
+    }
+
+    @Post('query')
+    async queryFileInfo(@Body() queryParam: QueryFile, @Query('pageIndex') pageIndex: number, @Query('pageSize') pageSize: number, @Res() res) {
+        const data = await this.filesService.queryFileInfo(queryParam, Number(pageIndex) - 1, pageSize)
+        return res.status(HttpStatus.OK).json(data);
     }
 
 }
