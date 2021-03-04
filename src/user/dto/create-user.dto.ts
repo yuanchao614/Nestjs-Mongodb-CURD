@@ -10,6 +10,8 @@ export class createUserDto {
     @IsEmail()
     @IsNotEmpty()
     public readonly email: string;
+    @IsString()
+    public readonly userType: string;
     @IsDateString()
     @IsNotEmpty()
     public readonly createdDate: Date;

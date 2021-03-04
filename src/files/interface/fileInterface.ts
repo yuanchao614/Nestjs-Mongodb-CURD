@@ -21,3 +21,13 @@ export interface QueryResult {
     total: number,
     data: FileInfO[]
 }
+
+export interface UpdateFile {
+    length: number,
+    chunkSize: number,
+    uploadDate: Date,
+    filename: string,
+    md5: string,
+    contentType: string
+    description: string
+}

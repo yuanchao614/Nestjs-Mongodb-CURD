@@ -1,11 +1,12 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose'
 import { Connection } from 'mongoose'
 import { MongoGridFS } from 'mongo-gridfs'
 import { GridFSBucketReadStream } from 'mongodb'
 import { FileInfoVm } from './file-info-vm.model'
 import { Model } from 'mongoose';
-import { QueryFile, QueryResult } from 'src/files/interface/fileInterface'
+import { QueryFile, QueryResult, UpdateFile } from 'src/files/interface/fileInterface'
+import { updateFileDto } from './dto/update-file-dto'
 
 @Injectable()
 export class FilesService {
@@ -57,9 +58,15 @@ export class FilesService {
     return result;
   }
 
+  /**
+   * 分页查询文件列表
+   * @param query 
+   * @param pageIndex 
+   * @param pageSize 
+   */
   async queryFileInfo(query: QueryFile = {}, pageIndex: number, pageSize: number): Promise<QueryResult> {
     console.log(query, pageIndex, pageSize);
-    const total = await this.filesModel.count();
+    const total = await this.filesModel.countDocuments();
     const data = await this.filesModel.find(query)
     .skip(Number(pageSize) * Number(pageIndex))
     .limit(Number(pageSize))
@@ -68,6 +75,21 @@ export class FilesService {
       data
     }
   }
+
+  async updateFile(
+    _id: string,
+    updateFile: updateFileDto
+): Promise<any> {
+    const existingUser = await this.filesModel.findByIdAndUpdate(
+        { _id: _id },
+        updateFile,
+      );
+      if (!existingUser) {
+        throw new NotFoundException(`file #${_id} not found`);
+      }
+  
+      return existingUser;
+}
 }
 
 

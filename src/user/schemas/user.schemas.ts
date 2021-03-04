@@ -14,6 +14,9 @@ export class User extends Document {
   email: string;
 
   @Prop()
+  userType: string;
+
+  @Prop()
   createdDate: Date;
 
   @Prop()

@@ -1,9 +1,11 @@
-import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body, Query } from '@nestjs/common';
+import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body, Query, Put, NotFoundException } from '@nestjs/common';
 import { ApiCreatedResponse, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { FileResponseVm } from './file-response-vm.model'
-import { QueryFile } from 'src/files/interface/fileInterface'
+import { QueryFile, UpdateFile } from 'src/files/interface/fileInterface'
+import { updateFileDto } from './dto/update-file-dto'
+
 
 @Controller('api/files')
 export class FilesController {
@@ -102,4 +104,30 @@ export class FilesController {
         return res.status(HttpStatus.OK).json(data);
     }
 
+    @Put('update/:id')
+    public async updateFile(
+      @Res() res,
+      @Param('id') id: string,
+      @Body() updateFile: updateFileDto,
+    ) {
+        // console.log(userId, updateUserDto, 'update user param:::::::::::::');
+      try {
+        const file = await this.filesService.updateFile(
+            id,
+            updateFile,
+        );
+        if (!file) {
+          throw new NotFoundException('file does not exist!');
+        }
+        return res.status(HttpStatus.OK).json({
+          message: 'file has been successfully updated',
+          file,
+        });
+      } catch (err) {
+        return res.status(HttpStatus.BAD_REQUEST).json({
+          message: 'Error: user not updated!',
+          status: 400,
+        });
+      }
+    }
 }

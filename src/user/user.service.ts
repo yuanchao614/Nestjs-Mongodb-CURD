@@ -28,12 +28,18 @@ export class UserService {
      */
     async findAll(
         paginationQuery: PaginationQueryDto,
-    ): Promise<User[]> {
-        const { pageSize, pageIndex } = paginationQuery;
-        return this.userModel.find()
+    ): Promise<any> {
+        let { pageSize, pageIndex } = paginationQuery;
+        pageIndex = pageIndex -1;
+        const total = await this.userModel.countDocuments();
+        const userList = await this.userModel.find()
         .skip(Number(pageSize) * Number(pageIndex))
         .limit(Number(pageSize))
         .exec();
+        return {
+            total,
+            userList
+        }
     }
 
     /**
