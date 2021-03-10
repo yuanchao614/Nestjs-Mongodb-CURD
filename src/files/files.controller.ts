@@ -1,15 +1,17 @@
-import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body, Query, Put, NotFoundException } from '@nestjs/common';
+import { Post, Get, Param, Res, Controller, UseInterceptors, UploadedFiles, HttpException, HttpStatus, Body, Query, Put, NotFoundException, UseGuards } from '@nestjs/common';
 import { ApiCreatedResponse, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { FileResponseVm } from './file-response-vm.model'
 import { QueryFile, UpdateFile } from 'src/files/interface/fileInterface'
 import { updateFileDto } from './dto/update-file-dto'
+import { AuthGuard } from '@nestjs/passport';
 
 
 @Controller('api/files')
 export class FilesController {
   constructor(private filesService: FilesService){}
+  @UseGuards(AuthGuard('jwt'))
   @Post('')
   @ApiConsumes('multipart/form-data')
   // @ApiImplicitFile({name: 'file', required: true, description: 'Attachment files'})
@@ -36,6 +38,7 @@ export class FilesController {
     return response;
 }
 
+@UseGuards(AuthGuard('jwt'))
 @Get('info/:id')
     // @ApiBadRequestResponse({ type: ApiException })
     async getFileInfo(@Param('id') id: string): Promise<FileResponseVm> {        
@@ -50,6 +53,7 @@ export class FilesController {
         }
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     // @ApiBadRequestResponse({ type: ApiException })
     async getFile(@Param('id') id: string, @Res() res) {        
@@ -62,6 +66,7 @@ export class FilesController {
         return filestream.pipe(res)
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('download/:id')
     // @ApiBadRequestResponse({ type: ApiException })
     async downloadFile(@Param('id') id: string, @Res() res) {
@@ -75,6 +80,7 @@ export class FilesController {
         return filestream.pipe(res) 
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('delete/:id')
     // @ApiBadRequestResponse({ type: ApiException })
     @ApiCreatedResponse({ type: FileResponseVm })
@@ -90,6 +96,7 @@ export class FilesController {
         }
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('search')
     // @ApiBadRequestResponse({ type: ApiException })
     async getAllFile(@Body() searchParam: any, @Res() res) {      
@@ -98,12 +105,14 @@ export class FilesController {
         return res.status(HttpStatus.OK).json(files);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('query')
     async queryFileInfo(@Body() queryParam: QueryFile, @Query('pageIndex') pageIndex: number, @Query('pageSize') pageSize: number, @Res() res) {
         const data = await this.filesService.queryFileInfo(queryParam, Number(pageIndex) - 1, pageSize)
         return res.status(HttpStatus.OK).json(data);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Put('update/:id')
     public async updateFile(
       @Res() res,
