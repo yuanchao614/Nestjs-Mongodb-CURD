@@ -53,7 +53,7 @@ export class FilesController {
         }
     }
 
-    @UseGuards(AuthGuard('jwt'))
+    // @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     // @ApiBadRequestResponse({ type: ApiException })
     async getFile(@Param('id') id: string, @Res() res) {        
@@ -66,7 +66,7 @@ export class FilesController {
         return filestream.pipe(res)
     }
 
-    @UseGuards(AuthGuard('jwt'))
+    // @UseGuards(AuthGuard('jwt'))
     @Get('download/:id')
     // @ApiBadRequestResponse({ type: ApiException })
     async downloadFile(@Param('id') id: string, @Res() res) {
