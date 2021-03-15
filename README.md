@@ -23,7 +23,8 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-This is my Nest.js + Mongodb + Node.js CURD api example and having Authorization! 
+nest.js + mongodb + gridfs实现文件上传下载，视频播放，图片获取与文件查询，用户登陆注册，登录获取Authentication以及基本的增删改查接口！
+> This is my Nest.js + Mongodb + Node.js CURD api example and having Authorization! 
 Include files upload、download、getFile、searchFile api!
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
